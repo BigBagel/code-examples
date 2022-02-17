@@ -1,0 +1,11 @@
+.SiteHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+
+	&__title {
+		color: var(--header-text-color);
+		font-size: 2rem;
+		transition: color var(--transition-time);
+	}
+}

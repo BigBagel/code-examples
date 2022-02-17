@@ -1,0 +1,18 @@
+.Site {
+	display: grid;
+	place-content: center;
+	gap: 1rem;
+	min-height: 100vh;
+	background: var(--main-bg);
+	transition: background-color var(--transition-time);
+
+	&__container {
+		max-width: 28rem;
+		width: 100%;
+		padding: 1rem;
+	}
+
+	&__header {
+		margin-bottom: 1rem;
+	}
+}

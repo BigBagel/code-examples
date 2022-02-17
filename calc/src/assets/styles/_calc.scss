@@ -1,0 +1,99 @@
+.Calc {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
+
+	&__section {
+		width: 100%;
+	}
+
+	&__display {
+		width: 100%;
+		background: var(--display-bg);
+		color: var(--display-text-color);
+		padding: 1.5rem 1rem 1rem;
+		border-radius: var(--radius);
+		border: none;
+		text-align: right;
+		font-size: 2.5rem;
+		transition: background-color var(--transition-time), color var(--transition-time);
+
+		&::placeholder {
+			color: var(--display-text-color);
+			opacity: 1;
+		}
+	}
+
+	&__keys {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.25rem;
+		background: var(--keypad-bg);
+		padding: 1.5rem;
+		border-radius: var(--radius);
+		transition: background-color var(--transition-time);
+	}
+
+	&__key {
+		cursor: pointer;
+		height: 3rem;
+		padding-top: .5rem;
+		font-size: 1.5rem;
+		background: var(--key-bg);
+		border: none;
+		border-radius: var(--radius);
+		box-shadow: 0 .25rem var(--key-shadow);
+		color: var(--key-text-color);
+		transition: background-color var(--transition-time);
+
+		&:hover, &:focus {
+			background: var(--key-hover-bg);
+		}
+
+		&:active {
+			transform: translateY(.125rem);
+			box-shadow: 0 .125rem var(--key-shadow);
+		}
+
+		&:nth-child(4),
+		&:nth-last-child(2) {
+			background: var(--del-key-bg);
+			box-shadow: 0 .25rem var(--del-key-shadow);
+			color: var(--del-key-text-color);
+			font-size: 1rem;
+
+			&:hover, &:focus {
+				background: var(--del-key-hover-bg);
+			}
+
+			&:active {
+				transform: translateY(.125rem);
+				box-shadow: 0 .125rem var(--del-key-shadow);
+			}
+		}
+
+		&:nth-last-child(2) {
+			grid-column: 1 / span 2;
+		}
+
+		&:last-child {
+			grid-column: 3 / span 2;
+			background: var(--eq-key-bg);
+			box-shadow: 0 .25rem var(--eq-key-shadow);
+			color: var(--eq-key-text-color);
+			font-size: 1rem;
+
+			&:hover, &:focus {
+				background: var(--eq-key-hover-bg);
+			}
+
+			&:active {
+				transform: translateY(.125rem);
+				box-shadow: 0 .125rem var(--eq-key-shadow);
+			}
+		}
+
+	}
+}

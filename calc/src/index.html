@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Spartan:wght@700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/styles/style.scss" />
+	<title>Calc Demo</title>
+</head>
+<body class="Site" data-theme="1">
+	<div class="Site__container">
+		<header class="Site__header SiteHeader">
+			<h1 class="SiteHeader__title">calc</h1>
+			<div class="SiteHeader__theme ThemeToggle">
+				<span id="themeToggleTitle" class="ThemeToggle__title">theme</span>
+				<div class="ThemeToggle__buttons">
+					<label class="ThemeToggle__label" for="Theme1"><span class="visually-hidden">Theme</span> 1</label>
+					<input class="ThemeToggle__radio" type="radio" id="Theme1" name="theme" value="1" checked />
+					<label class="ThemeToggle__label" for="Theme2"><span class="visually-hidden">Theme</span> 2</label>
+					<input class="ThemeToggle__radio" type="radio" id="Theme2" name="theme" value="2" />
+					<label class="ThemeToggle__label" for="Theme3"><span class="visually-hidden">Theme</span> 3</label>
+					<input class="ThemeToggle__radio" type="radio" id="Theme3" name="theme" value="3" />
+					<div class="ThemeToggle__bar"></div>
+				</div>
+			</div>
+		</header>
+		<main class="Site__main">
+			<div class="Calc">
+				<div class="Calc__section">
+					<input class="Calc__display js-display" type="text" placeholder="0" readonly aria-live="polite" />
+				</div>
+				<div class="Calc__section">
+					<div class="Calc__keys">
+						<button class="Calc__key js-key">7</button>
+						<button class="Calc__key js-key">8</button>
+						<button class="Calc__key js-key">9</button>
+						<button class="Calc__key js-key">DEL</button>
+						<button class="Calc__key js-key">4</button>
+						<button class="Calc__key js-key">5</button>
+						<button class="Calc__key js-key">6</button>
+						<button class="Calc__key js-key">+</button>
+						<button class="Calc__key js-key">1</button>
+						<button class="Calc__key js-key">2</button>
+						<button class="Calc__key js-key">3</button>
+						<button class="Calc__key js-key">-</button>
+						<button class="Calc__key js-key">.</button>
+						<button class="Calc__key js-key">0</button>
+						<button class="Calc__key js-key">/</button>
+						<button class="Calc__key js-key">*</button>
+						<button class="Calc__key js-key">RESET</button>
+						<button class="Calc__key js-key">=</button>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+	<script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>
