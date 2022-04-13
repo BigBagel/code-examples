@@ -48,7 +48,7 @@ const SectionNav = ({ sections, activeSection, isMobileOnly = false }: Props) =>
 			<ul css={styles.sectionNavMenu}>
 				{sections.map(({ section, text, mobileText, link }: Section, index: number) => (
 					<li key={index}>
-						<Link href={link} passHref>
+						<Link href={link} scroll={false} passHref>
 							<a css={styles.sectionNavLink({ active: section === activeSection })}>
 								{!isMobileOnly && <span css={styles.sectionNavNumber}>{`0${index}`}</span> }
 								{isMobileOnly ? ( mobileText ?? text ) : text}
