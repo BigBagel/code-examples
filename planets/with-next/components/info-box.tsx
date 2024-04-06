@@ -12,7 +12,7 @@ const styles = {
 	content: tw`font-title text-[2.5rem] line-height[1.3] tracking-[-1.5px] uppercase`,
 }
 
-const InfoBox = ({ heading, headingTag = 'h3', children }: Props) => {
+const InfoBox = ({ heading, headingTag = 'h2', children }: Props) => {
 	const HeadingTag: keyof JSX.IntrinsicElements = headingTag;
 
 	return (
