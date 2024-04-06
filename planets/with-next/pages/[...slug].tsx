@@ -1,5 +1,5 @@
-import type { NextPage, GetStaticPaths, GetStaticProps } from 'next';
-import { ParsedUrlQuery } from 'querystring';
+import type { NextPage, GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import type { ParsedUrlQuery } from 'querystring';
 import Head from 'next/head';
 import tw from 'twin.macro';
 
@@ -7,10 +7,15 @@ import InfoBox from '../components/info-box';
 import SectionNav from '../components/section-nav';
 
 import planetData from '../data/data.json';
+import type { PlanetData, PlanetInfoSection } from '../types/planets';
 
 type Props = {
-    planet: any,
-	sectionName: string,
+  planet: PlanetData;
+	slug: string;
+	content: string;
+	source: string;
+	image: string;
+	sectionName: PlanetInfoSection;
 };
 
 interface IParams extends ParsedUrlQuery {
@@ -52,7 +57,14 @@ const styles = {
 	`,
 }
 
-const Page: NextPage<Props> = ({ planet, sectionName }) => {
+const Page: NextPage<Props> = ({ 
+	planet, 
+	slug, 
+	image, 
+	content, 
+	source, 
+	sectionName 
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
 	if (!planet) {
 		return null;
 	}
@@ -61,19 +73,19 @@ const Page: NextPage<Props> = ({ planet, sectionName }) => {
 		{
 			section: 'overview',
 			text: 'Overview',
-			link: planet.slug,
+			link: slug,
 		},
 		{
 			section: 'structure',
 			text: 'Internal Structure',
 			mobileText: 'Structure',
-			link: `${planet.slug}/structure`,
+			link: `${slug}/structure`,
 		},
 		{
 			section: 'geology',
 			text: 'Surface Geology',
 			mobileText: 'Geoglogy',
-			link: `${planet.slug}/geology`,
+			link: `${slug}/geology`,
 		},
 	];
 
@@ -101,7 +113,7 @@ const Page: NextPage<Props> = ({ planet, sectionName }) => {
 			<Head>
 				<title>{planet.name} | The Planets</title>
 			</Head>
-			<div css={styles.planetContainer( planet.slug )}>
+			<div css={styles.planetContainer(slug)}>
 				<SectionNav
 					isMobileOnly={true}
 					sections={sectionLinks}
@@ -109,23 +121,23 @@ const Page: NextPage<Props> = ({ planet, sectionName }) => {
 				/>
 				<div css={styles.imageContainer}>
 					<img
-						css={styles.planetImage( planet.imagesize )}
-						src={planet.image}
-						alt=""
+						css={styles.planetImage(planet.imageSize)}
+						src={image}
+						alt={sectionName === 'internal' ? `Internal cutout of ${planet.name}` : planet.name}
 					/>
 					{sectionName === 'geology' &&
 						<img
 							css={styles.geologyImage}
 							src={planet.images.geology}
-							alt=""
+							alt={`Surface of ${planet.name}`}
 						/>
 					}
 				</div>
 				<div css={styles.contentContainer}>
 					<div css={styles.content}>
 						<h1 css={styles.contentTitle}>{ planet.name }</h1>
-						<p css={styles.contentText}>{ planet.content }</p>
-						<p css={styles.source}>Source: <a href={ planet.source } css={styles.sourceLink}>Wikipedia <img src="/assets/images/source.svg" alt="" /></a></p>
+						<p css={styles.contentText}>{ content }</p>
+						<p css={styles.source}>Source: <a href={ source } css={styles.sourceLink}>Wikipedia <img src="/assets/images/source.svg" alt="" /></a></p>
 					</div>
 					<SectionNav
 						tw='hidden md:block'
@@ -167,22 +179,20 @@ const getStaticPaths: GetStaticPaths = () => {
 	};
 };
 
-const getStaticProps: GetStaticProps = ({ params }) => {
+const getStaticProps: GetStaticProps<Props> = ({ params }) => {
 	const { slug } = params as IParams;
-	const planetName: string = slug[0];
-	const sectionName: string = slug[1] ?? 'overview';
-	const planet: any = planetData.find(p => p.name.toLowerCase() === planetName);
+	const planetSlug: string = slug[0];
+	const sectionName: PlanetInfoSection = slug[1] as PlanetInfoSection ?? 'overview';
+	const planet: any = planetData.find(p => p.name.toLowerCase() === planetSlug);
 	const image: string = sectionName === 'geology' ? planet.images.overview : planet.images[sectionName];
 
 	return {
 		props: {
-			planet: {
-				...planet,
-				slug: planetName,
-				content: planet[sectionName].content,
-				source: planet[sectionName].source,
-				image,
-			},
+			planet,
+			slug: planetSlug,
+			content: planet[sectionName].content,
+			source: planet[sectionName].source,
+			image,
 			sectionName,
 		},
 	};
